@@ -27,40 +27,48 @@
 
     <!-- Professional Builde -->
     <section class="professional_builder row">
-        <div class="container">
            <div class="row builder_all">
-                <div class="col-md-3 col-sm-6 builder">
+                <div class="col-md-1 builder">
+                    &nbsp;
+                </div>
+                <div class="col-md-2 builder">
                     <img src="<?=base_url('assets/landing/images/sirup.png') ?>" width="125"><br><br>
                     <h4>Sistem Informasi Rencana Umum Pengadaan</h4>
                     <p>Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah<br>
                         Direktorat Perencanaan, Monitoring dan Evaluasi Pengadaan
                     </p>
                     <hr>
-                    <a href="https://sirup.lkpp.go.id/sirup/ro" target="_blank">SiRUP LKPP RI</a>
+                    <a href="https://sirup.lkpp.go.id/sirup/ro" target="_blank">SIRUP LKPP RI</a>
                 </div>
-                <div class="col-md-3 col-sm-6 builder">
+                <div class="col-md-2 builder">
                     <img src="<?=base_url('assets/landing/images/lpse1.png') ?>" width="125"><br><br>
                     <h4>Layanan Pengadaan Secara Elektronik</h4>
                     <p>Layanan pengelolaan teknologi informasi untuk memfasilitasi pelaksanaan Pengadaan Barang/Jasa secara elektronik.</p>
                     <hr>
                     <a href="https://lpse.gorontaloprov.go.id/eproc4/" target="_blank">LPSE Provinsi Gorontalo</a>
                 </div>
-                <div class="col-md-3 col-sm-6 builder">
+                <div class="col-md-2 builder">
                     <img src="<?=base_url('assets/landing/images/sikap.png') ?>" width="125"><br><br>
                     <h4>Sistem Informasi Kinerja Penyedia</h4>
                     <p>Layanan penyedia informasi bagi penyedia untuk pencatatan kinerja terkait Pengadaan Barang/Jasa secara elektronik.</p>
                     <hr>
-                    <a href="https://sikap.lkpp.go.id/" target="_blank">SiKaP LKPP RI</a>
+                    <a href="https://sikap.lkpp.go.id/" target="_blank">SIKaP LKPP RI</a>
                 </div>
-                <div class="col-md-3 col-sm-6 builder">
+                <div class="col-md-2 builder">
                     <img src="<?=base_url('assets/landing/images/emonev.png') ?>" width="125"><br><br>
                     <h4>Elektonik Monitoring & Evaluasi (e-Monep)</h4>
                     <p>Sistem Monitoring, Evaluasi, Pengendalian dan Pelaporan Kinerja Pembangunan Terintegrasi Organisasi Perangkat Daerah (OPD) Provinsi Gorontalo</p>
                     <hr>
                     <a href="https://e-monep.gorontaloprov.go.id/" target="_blank">e-Monep Provinsi Gorontalo</a>
                 </div>
+                <div class="col-md-2 builder">
+                    <img src="<?=base_url('assets/landing/images/sikopi.png') ?>" width="125"><br><br>
+                    <h4>SIKOPI</h4>
+                    <p>Sistem Monitoring, Evaluasi, Pengendalian dan Pelaporan Kinerja Pembangunan Terintegrasi Organisasi Perangkat Daerah (OPD) Provinsi Gorontalo</p>
+                    <hr>
+                    <a href="#" target="_blank">SIKOPI</a>
+                </div>
            </div>
-        </div>
     </section>
     <!-- End Professional Builde -->
 
