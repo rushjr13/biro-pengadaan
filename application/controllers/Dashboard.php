@@ -15,6 +15,8 @@ class Dashboard extends CI_Controller {
 		$id_pengguna = $this->session->userdata('id_user_masuk');
 		$data['pengguna_masuk'] = $this->Admin_model->pengguna($id_pengguna);
 		$data['pengaturan'] = $this->Admin_model->pengaturan();
+		$data['tgl_sekarang'] = $this->Admin_model->tgl_indo(date('Y-m-d'));
+		$data['hari_sekarang'] = $this->Admin_model->hari(date('l'));
 		$data['menu'] = $this->Admin_model->menu();
 
 		// KHUSUS

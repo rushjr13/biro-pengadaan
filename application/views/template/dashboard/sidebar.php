@@ -1,4 +1,4 @@
-<body id="page-top">
+<body id="page-top" onload="startTime()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
