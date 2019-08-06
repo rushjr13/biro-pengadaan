@@ -39,7 +39,7 @@
         ?>
         <?php foreach ($submenu as $sm): ?>
           <!-- Nav Item - Charts -->
-          <li class="nav-item p-0">
+          <li class="nav-item">
             <a class="nav-link" href="<?=$sm['url'] ?>">
               <i class="fas fa-fw <?=$sm['icon'] ?>"></i>
               <span><?=$sm['nama_submenu'] ?></span></a>
