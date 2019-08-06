@@ -54,10 +54,14 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$pengguna_masuk['nama_lengkap'] ?></span>
-                <?php if($pengguna_masuk['jk']=="Laki-Laki"){ ?>
-                  <img class="img-profile rounded-circle" src="<?=base_url('assets/admin/img/user_l.png') ?>">
+                <?php if($pengguna_masuk['foto']){ ?>
+                    <img class="img-profile rounded-circle" src="<?=base_url('assets/admin/img/pengguna/').$pengguna_masuk['foto'] ?>">
                 <?php }else{ ?>
-                  <img class="img-profile rounded-circle" src="<?=base_url('assets/admin/img/user_p.png') ?>">
+                  <?php if($pengguna_masuk['jk']=="Laki-Laki"){ ?>
+                    <img class="img-profile rounded-circle" src="<?=base_url('assets/admin/img/user_l.png') ?>">
+                  <?php }else{ ?>
+                    <img class="img-profile rounded-circle" src="<?=base_url('assets/admin/img/user_p.png') ?>">
+                  <?php } ?>
                 <?php } ?>
               </a>
               <!-- Dropdown - User Information -->
