@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kesalahan extends CI_Controller {
+class Profil extends CI_Controller {
 
 	public function index()
 	{
@@ -10,10 +10,11 @@ class Kesalahan extends CI_Controller {
 		$data['menulanding'] = $this->Admin_model->menulanding();
 
 		// KHUSUS
-		$data['judul'] = "404 Halaman Tidak Ditemukan";
+		$data['judul'] = "Profil";
+		$data['profil'] = $this->Admin_model->profil();
 		$this->load->view('template/landing/header', $data);
 		$this->load->view('template/landing/navbar', $data);
-		$this->load->view('kesalahan', $data);
+		$this->load->view('landing/profil', $data);
 		$this->load->view('template/landing/footer', $data);
 	}
 }

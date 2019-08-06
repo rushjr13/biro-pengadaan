@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?=$pengaturan['nama_web'] ?> || <?=$judul ?></title>
+  <title><?=strtoupper($pengaturan['nama_web']) ?> - <?=$judul ?></title>
   <link rel="shortcut icon" href="<?=base_url('assets/admin/img/').$pengaturan['icon'] ?>">
 
   <!-- Custom fonts for this template-->

@@ -23,16 +23,6 @@
     <!-- Header_Area -->
     <nav class="navbar navbar-default header_aera" id="main_navbar">
         <div class="container">
-            <!-- searchForm -->
-            <div class="searchForm">
-                <form action="#" class="row m0">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        <input type="search" name="search" class="form-control" placeholder="Type & Hit Enter">
-                        <span class="input-group-addon form_hide"><i class="fa fa-times"></i></span>
-                    </div>
-                </form>
-            </div><!-- End searchForm -->
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="col-md-2 p0">
                 <div class="navbar-header">
@@ -52,7 +42,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<?=base_url() ?>">Beranda</a></li>
                         <?php foreach ($menulanding as $ml): ?>
-                            <li><a href="<?=base_url() ?>"><?=$ml['nama_ml'] ?></a></li>
+                            <li><a href="<?=base_url().$ml['url_ml'] ?>"><?=$ml['nama_ml'] ?></a></li>
                         <?php endforeach ?>
                         <!-- <li class="dropdown submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us</a>
@@ -75,7 +65,6 @@
                                 <li><a href="blog-2.html">Blog-2</a></li>
                             </ul>
                         </li> -->
-                        <li><a href="#" class="nav_searchFrom"><i class="fa fa-search"></i></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>

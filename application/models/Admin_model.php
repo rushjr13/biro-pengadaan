@@ -251,6 +251,21 @@ class Admin_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    // PROFIL
+    function profil($id_profil=null){
+        if($id_profil==null){
+            $this->db->select('*');
+            $this->db->from('profil');
+            $this->db->order_by('id_profil', 'ASC');
+            return $this->db->get()->result_array();
+        } else {
+            $this->db->select('*');
+            $this->db->from('profil');
+            $this->db->where('id_profil', $id_profil);
+            return $this->db->get()->row_array();
+        }
+    }
+
     // GALERI LENGKAP
     function galeri_lengkap($id=null){
         if($id==null){

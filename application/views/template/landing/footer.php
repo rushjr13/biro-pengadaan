@@ -37,9 +37,9 @@
                 </div>
             </div>
         </div>
-        <div class="copyright_area">
+        <!-- <div class="copyright_area">
             Copyright 2017 All rights reserved. Designed by <a href="https://colorlib.com">Colorlib.</a>
-        </div>
+        </div> -->
     </footer>
     <!-- End Footer Area -->
 

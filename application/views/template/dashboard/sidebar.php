@@ -18,7 +18,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item <?php if($judul=='Beranda'){echo 'active';} ?>">
         <a class="nav-link" href="<?=base_url('dashboard') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Beranda</span></a>
@@ -39,7 +39,7 @@
         ?>
         <?php foreach ($submenu as $sm): ?>
           <!-- Nav Item - Charts -->
-          <li class="nav-item">
+          <li class="nav-item <?php if($judul==$sm['nama_submenu']){echo 'active';} ?>">
             <a class="nav-link" href="<?=$sm['url'] ?>">
               <i class="fas fa-fw <?=$sm['icon'] ?>"></i>
               <span><?=$sm['nama_submenu'] ?></span></a>
