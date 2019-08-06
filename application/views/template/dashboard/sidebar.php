@@ -24,20 +24,29 @@
           <span>Beranda</span></a>
       </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <div class="sidebar-heading">
-        Menu
-      </div>
+      <?php foreach ($menu as $mn): ?>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">
+          <?=$mn['nama_menu'] ?>
+        </div>
+        <?php
+          $this->db->where('id_menu', $mn['id_menu']);
+          $this->db->order_by('id_submenu', 'ASC');
+          $submenu = $this->db->get('submenu')->result_array();
+        ?>
+        <?php foreach ($submenu as $sm): ?>
+          <!-- Nav Item - Charts -->
+          <li class="nav-item p-0">
+            <a class="nav-link" href="<?=$sm['url'] ?>">
+              <i class="fas fa-fw <?=$sm['icon'] ?>"></i>
+              <span><?=$sm['nama_submenu'] ?></span></a>
+          </li>
+        <?php endforeach ?>
+      <?php endforeach ?>
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Sub Menu</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block mb-0">
