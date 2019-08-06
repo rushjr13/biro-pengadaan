@@ -232,6 +232,7 @@ class Admin_model extends CI_Model {
             $this->db->select('*');
             $this->db->from('menu_landing');
             $this->db->order_by('id_ml', 'ASC');
+            $this->db->where('status_ml', 1);
             return $this->db->get()->result_array();
         } else {
             $this->db->select('*');

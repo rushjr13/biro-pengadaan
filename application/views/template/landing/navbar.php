@@ -51,6 +51,9 @@
                 <div class="collapse navbar-collapse" id="min_navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<?=base_url() ?>">Beranda</a></li>
+                        <?php foreach ($menulanding as $ml): ?>
+                            <li><a href="<?=base_url() ?>"><?=$ml['nama_ml'] ?></a></li>
+                        <?php endforeach ?>
                         <!-- <li class="dropdown submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us</a>
                             <ul class="dropdown-menu other_dropdwn">
