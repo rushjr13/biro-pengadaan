@@ -266,6 +266,49 @@ class Admin_model extends CI_Model {
         }
     }
 
+    // LAYANAN UTAMA
+    function layanan_utama(){
+        $this->db->select('*');
+        $this->db->from('layanan');
+        $this->db->order_by('id_layanan', 'ASC');
+        $this->db->where('kategori', 1);
+        return $this->db->get()->result_array();
+    }
+
+    // LAYANAN PENDUKUNG
+    function layanan_pendukung(){
+        $this->db->select('*');
+        $this->db->from('layanan');
+        $this->db->order_by('id_layanan', 'ASC');
+        $this->db->where('kategori', 2);
+        return $this->db->get()->result_array();
+    }
+
+    // LAYANAN DETAIL
+    function layanan_detail($id_layanan){
+        $this->db->select('*');
+        $this->db->from('layanan');
+        $this->db->where('id_layanan', $id_layanan);
+        return $this->db->get()->row_array();
+    }
+
+    // PENGADUAN
+    function pengaduan($id=null){
+        if($id==null){
+            $this->db->select('*');
+            $this->db->from('pengaduan');
+            $this->db->join('layanan', 'layanan.id_layanan = pengaduan.id_layanan');
+            $this->db->order_by('pengaduan.tanggal', 'DESC');
+            return $this->db->get()->result_array();
+        } else {
+            $this->db->select('*');
+            $this->db->from('pengaduan');
+            $this->db->join('layanan', 'layanan.id_layanan = pengaduan.id_layanan');
+            $this->db->where('pengaduan.id', $id);
+            return $this->db->get()->row_array();
+        }
+    }
+
     // GALERI LENGKAP
     function galeri_lengkap($id=null){
         if($id==null){

@@ -29,7 +29,43 @@
 				</div> -->
 			</div>
 		</div>
-		<div class="tab-pane fade show" id="list-layanan" role="tabpanel" aria-labelledby="list-layanan">Layanan</div>
+		<div class="tab-pane fade show" id="list-layanan" role="tabpanel" aria-labelledby="list-layanan">
+			<div class="card shadow border-primary">
+				<div class="card-header bg-primary text-white">
+					Layanan
+				</div>
+				<div class="card-body row">
+					<div class="col-md-6">
+						<div class="card border-success shadow">
+							<div class="card-header bg-success text-white">
+								Utama
+							</div>
+							<div class="card-body">
+								<div class="list-group">
+									<?php foreach ($layanan_utama as $lu): ?>
+										<a href="<?=base_url('menu/landing/layanan/').$lu['id_layanan'] ?>" class="list-group-item list-group-item-action list-group-item-success"><?=$lu['nama_layanan'] ?></a>
+									<?php endforeach ?>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card border-warning shadow">
+							<div class="card-header bg-warning text-dark">
+								Pendukung
+							</div>
+							<div class="card-body">
+								<div class="list-group">
+									<?php foreach ($layanan_pendukung as $lp): ?>
+										<a href="<?=base_url('menu/landing/layanan/').$lp['id_layanan'] ?>" class="list-group-item list-group-item-action list-group-item-warning"><?=$lp['nama_layanan'] ?></a>
+									<?php endforeach ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="tab-pane fade show" id="list-galeri" role="tabpanel" aria-labelledby="list-galeri">Galeri</div>
 		<div class="tab-pane fade show" id="list-kontak" role="tabpanel" aria-labelledby="list-kontak">Kontak</div>
     </div>

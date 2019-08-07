@@ -62,6 +62,8 @@ class Menu extends CI_Controller {
 			$data['judul'] = "Landing";
 			$data['menulanding'] = $this->Admin_model->menulanding();
 			$data['profil'] = $this->Admin_model->profil();
+			$data['layanan_utama'] = $this->Admin_model->layanan_utama();
+			$data['layanan_pendukung'] = $this->Admin_model->layanan_pendukung();
 			$this->load->view('template/dashboard/header', $data);
 			$this->load->view('template/dashboard/sidebar', $data);
 			$this->load->view('template/dashboard/topbar', $data);
@@ -136,6 +138,27 @@ class Menu extends CI_Controller {
 
 					}
 				}
+			}
+		}else if($hal=='layanan'){
+			if($id==null){
+				$this->session->set_flashdata('info', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+														  <i class="fa fa-fw fa-ban"></i> Tidak ada layanan yang dipilih!
+														  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														    <span aria-hidden="true">&times;</span>
+														  </button>
+														</div>');
+				redirect('menu/landing');
+			}else{
+				$data['judul'] = "Landing";
+				$data['subjudul'] = "Layanan";
+				$data['menulanding'] = $this->Admin_model->menulanding();
+				$data['layanan'] = $this->Admin_model->layanan_detail($id);
+				$data['pengaduan'] = $this->Admin_model->pengaduan();
+				$this->load->view('template/dashboard/header', $data);
+				$this->load->view('template/dashboard/sidebar', $data);
+				$this->load->view('template/dashboard/topbar', $data);
+				$this->load->view('menu/landing/layanan', $data);
+				$this->load->view('template/dashboard/footer', $data);
 			}
 		}
 	}
