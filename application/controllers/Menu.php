@@ -77,15 +77,65 @@ class Menu extends CI_Controller {
 														</div>');
 				redirect('menu/landing');
 			}else{
-				$data['judul'] = "Landing";
-				$data['subjudul'] = "Profil";
-				$data['menulanding'] = $this->Admin_model->menulanding();
-				$data['profil'] = $this->Admin_model->profil($id);
-				$this->load->view('template/dashboard/header', $data);
-				$this->load->view('template/dashboard/sidebar', $data);
-				$this->load->view('template/dashboard/topbar', $data);
-				$this->load->view('menu/landing/profil', $data);
-				$this->load->view('template/dashboard/footer', $data);
+				$this->form_validation->set_rules('isi', 'Bidang Ini', 'required',[
+					'required' => 'Bidang Ini Harus Diisi!'
+				]);
+				if ($this->form_validation->run() == FALSE){
+					$data['judul'] = "Landing";
+					$data['subjudul'] = "Profil";
+					$data['menulanding'] = $this->Admin_model->menulanding();
+					$data['profil'] = $this->Admin_model->profil($id);
+					$this->load->view('template/dashboard/header', $data);
+					$this->load->view('template/dashboard/sidebar', $data);
+					$this->load->view('template/dashboard/topbar', $data);
+					$this->load->view('menu/landing/profil', $data);
+					$this->load->view('template/dashboard/footer', $data);
+				}else{
+					$tipe = $this->input->post('tipe');
+					$nama_profil = $this->input->post('nama_profil');
+					if($tipe=='text'){
+						$isi = $this->input->post('isi');
+						$this->db->set('isi', $isi);
+						$this->db->where('id_profil', $id);
+						$this->db->update('profil');
+						$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+																  <i class="fa fa-fw fa-info"></i> Profil <strong>'.$nama_profil.'</strong> telah diperbarui!
+																  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																    <span aria-hidden="true">&times;</span>
+																  </button>
+																</div>');
+						redirect('menu/landing/profil/'.$id);
+					}else{
+						// Cek gambar yang diupload
+						$gambar_upload = $_FILES['gambar']['name'];
+
+						if($gambar_upload){
+							$config['allowed_types']	= 'jpg|jpeg|png';
+							$config['upload_path']		= './assets/admin/img/profil/';
+							$this->load->library('upload', $config);
+							if($this->upload->do_upload('gambar')){
+								$gambar_lama = $this->input->post('gambar_lama');
+								unlink(FCPATH.'assets/admin/img/profil/'.$gambar_lama);
+								$gambar_baru = $this->upload->data('file_name');
+								$data = ['isi'=>$gambar_baru];
+							} else {
+								echo $this->upload->display_errors();
+							}
+							$this->db->set($data);
+							$this->db->where('id_profil', $id);
+							$this->db->update('profil');
+
+							$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+																	  <i class="fa fa-fw fa-info-circle"></i> Profil <strong>'.$nama_profil.'</strong> telah diperbarui!
+																	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																	    <span aria-hidden="true">&times;</span>
+																	  </button>
+																	</div>');
+							redirect('menu/landing/profil/'.$id);
+						}
+
+					}
+				}
 			}
 		}
 	}
