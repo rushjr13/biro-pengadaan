@@ -78,6 +78,44 @@ This files contents are outlined below.
   transform: scaleY(1);
 }
 
+/* Button Download */
+.button_download {
+  font: 700 14px/59px "Roboto", sans-serif;
+  width: 150px;
+  text-align: center;
+  background: #f6b60b;
+  display: block;
+  border: 0;
+  color: #222222;
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  margin-bottom: 20px;
+  float: right;
+}
+.button_download:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: #222222;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  right: 0;
+  transform: scaleY(0);
+  transform-origin: 50%;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+}
+.button_download:hover, .button_download:focus {
+  color: #fff !important;
+}
+.button_download:hover:before, .button_download:focus:before {
+  transform: scaleY(1);
+}
+
 /* Section Title*/
 .tittle {
   text-align: center;

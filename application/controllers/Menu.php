@@ -149,16 +149,34 @@ class Menu extends CI_Controller {
 														</div>');
 				redirect('menu/landing');
 			}else{
-				$data['judul'] = "Landing";
-				$data['subjudul'] = "Layanan";
-				$data['menulanding'] = $this->Admin_model->menulanding();
-				$data['layanan'] = $this->Admin_model->layanan_detail($id);
-				$data['pengaduan'] = $this->Admin_model->pengaduan();
-				$this->load->view('template/dashboard/header', $data);
-				$this->load->view('template/dashboard/sidebar', $data);
-				$this->load->view('template/dashboard/topbar', $data);
-				$this->load->view('menu/landing/layanan', $data);
-				$this->load->view('template/dashboard/footer', $data);
+				$this->form_validation->set_rules('isi', 'Bidang Ini', 'required',[
+					'required' => 'Bidang Ini Harus Diisi!'
+				]);
+				if ($this->form_validation->run() == FALSE){
+					$data['judul'] = "Landing";
+					$data['subjudul'] = "Layanan";
+					$data['menulanding'] = $this->Admin_model->menulanding();
+					$data['layanan'] = $this->Admin_model->layanan_detail($id);
+					$data['pengaduan'] = $this->Admin_model->pengaduan();
+					$this->load->view('template/dashboard/header', $data);
+					$this->load->view('template/dashboard/sidebar', $data);
+					$this->load->view('template/dashboard/topbar', $data);
+					$this->load->view('menu/landing/layanan', $data);
+					$this->load->view('template/dashboard/footer', $data);
+				}else{
+					$nama_layanan = $this->input->post('nama_layanan');
+					$isi = $this->input->post('isi');
+					$this->db->set('isi', $isi);
+					$this->db->where('id_layanan', $id);
+					$this->db->update('layanan');
+					$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-info"></i> Layanan <strong>'.$nama_layanan.'</strong> telah diperbarui!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing/layanan/'.$id);
+				}
 			}
 		}
 	}

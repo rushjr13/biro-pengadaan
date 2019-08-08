@@ -1,21 +1,39 @@
 <?php if($layanan['kategori']==1){ ?>
-	<embed src="<?=base_url('assets/admin/img/layanan/').$layanan['file'] ?>" type="application/pdf" width="100%" height="650" />
+	<div class="card shadow border-primary mb-4">
+		<div class="card-header bg-primary text-white">
+			<?=$subjudul ?> - <?=$layanan['nama_layanan'] ?>
+		</div>
 		<form action="<?=base_url('menu/landing/layanan/').$layanan['id_layanan'] ?>" method="post" enctype="multipart/form-data">
-			<div class="input-group">
-				<div class="custom-file">
-					<input type="hidden" class="form-control" id="filelama" name="filelama" value="<?=$layanan['file'] ?>">
-					<input type="file" class="custom-file-input" id="filelayanan" name="filelayanan" aria-describedby="layanan" required>
-					<label class="custom-file-label" for="filelayanan" data-browse="Pilih File">Pilih file dengan format <strong>.pdf</strong>!</label>
+			<div class="card-body">
+				<div class="form-group">
+					<input type="hidden" name="nama_layanan" id="nama_layanan" value="<?=$layanan['nama_layanan'] ?>">
+					<textarea class="form-control ckeditor" id="ckeditor" name="isi" rows="20"><?=$layanan['isi'] ?></textarea>
+					<?php echo form_error('isi', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
 				</div>
-				<div class="input-group-append">
-					<button class="btn btn-outline-secondary" type="submit" id="layanan">Simpan</button>
-					<a href="<?=base_url('menu/landing') ?>" class="btn btn-secondary" id="layanan">Kembali</a>
+				<div class="input-group">
+					<?php if($layanan['file']){ ?>
+						<div class="input-group-prepend">
+							<a href="<?=base_url('assets/admin/img/layanan/').$layanan['file'] ?>" class="btn btn-outline-success" id="layanan" title="<?=$layanan['file'] ?>">Download File</a>
+						</div>
+					<?php } ?>
+					<div class="custom-file">
+						<input type="hidden" class="form-control" id="filelama" name="filelama" value="<?=$layanan['file'] ?>">
+						<input type="file" class="custom-file-input" id="filelayanan" name="filelayanan" aria-describedby="layanan" >
+						<label class="custom-file-label" for="filelayanan" data-browse="Pilih File">Pilih file dengan format <strong>.pdf</strong>!</label>
+					</div>
+					<div class="input-group-append">
+						<button class="btn btn-outline-primary" type="submit" id="layanan">Simpan</button>
+						<a href="<?=base_url('menu/landing') ?>" class="btn btn-outline-danger" id="layanan">Kembali</a>
+					</div>
 				</div>
+				<?php if($layanan['file']){ ?>
+					<small class="text-info" style="font-style: italic;">
+						<i class="fa fa-fw fa-info"></i>Kosongkan jika tidak ingin mengubah file!<br>
+					</small>
+				<?php } ?>
 			</div>
-			<small class="text-info" style="font-style: italic;">
-				<i class="fa fa-fw fa-info"></i>Kosongkan jika tidak ingin mengubah file!<br>
-			</small>
 		</form>
+	</div>
 <?php }else{ ?>
 	<div class="card shadow border-primary">
 		<div class="card-header bg-primary text-white">
