@@ -23,6 +23,8 @@
   <!-- Custom styles for this page -->
   <link href="<?= base_url('assets/admin/vendor') ?>/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+  <script type="text/javascript" src="<?= base_url('assets/admin/ckeditor') ?>/ckeditor.js"></script>
+
   <script type="text/javascript">
     function startTime()
     {

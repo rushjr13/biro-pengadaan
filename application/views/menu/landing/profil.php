@@ -10,7 +10,7 @@
 						<div class="form-group">
 							<input type="hidden" name="tipe" id="tipe" value="text">
 							<input type="hidden" name="nama_profil" id="nama_profil" value="<?=$profil['nama_profil'] ?>">
-							<textarea class="form-control" id="isi" name="isi" rows="10"><?=$profil['isi'] ?></textarea>
+							<textarea class="form-control ckeditor" id="ckeditor" name="isi" rows="10"><?=$profil['isi'] ?></textarea>
 							<?php echo form_error('isi', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
 						</div>
 					</div>

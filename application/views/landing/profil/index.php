@@ -7,7 +7,7 @@
 </section>
 <!-- End Banner area -->
 <!-- Our Services Area -->
-<section class="our_services_tow">
+<!-- <section class="our_services_tow">
     <div class="container">
         <div class="architecture_area services_pages">
                 <?= $this->session->flashdata('info'); ?>
@@ -20,9 +20,10 @@
                                 <h2><?=$pr['nama_profil'] ?></h2>
                             </div>
                             <?php if($pr['tipe']=='text'){ ?>
-                                <p class="text-justify"><?=$pr['isi'] ?></p>
+                                <?=$pr['isi'] ?>
                                 <a href="<?=base_url('profil/detail/').$pr['id_profil'] ?>" class="button_all">Selengkapnya</a>
                             <?php }else{ ?>
+                                <?=$pr['nama_profil'] ?>
                                 <a href="<?=base_url('profil/detail/').$pr['id_profil'] ?>" class="button_all">Selengkapnya</a>
                             <?php } ?>
                         </div>
@@ -32,5 +33,39 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- End Our Services Area -->
+
+<!-- Building Construction Area -->
+<section class="building_construction_area">
+    <div class="container">
+        <div class="row building_construction_row">
+            <?= $this->session->flashdata('info'); ?>
+            <?php foreach ($profil as $pr): ?>
+                <div class="col-md-6 constructing_right">
+                    <div class="contact_us2">
+                        <h4><?=strtoupper($pr['nama_profil']) ?></h4>
+                        <?php if($pr['tipe']=='text'){ ?>
+                            <?php
+                                $num_char = 150;
+                                $isi = strip_tags($pr['isi']);
+                                $cut_text = substr($isi, 0, $num_char);
+                                if ($isi{$num_char - 1} != ' ') { // jika huruf ke 50 (50 - 1 karena index dimulai dari 0) buka  spasi
+                                    $new_pos = strrpos($cut_text, ' '); // cari posisi spasi, pencarian dari huruf terakhir
+                                    $cut_text = substr($isi, 0, $new_pos);
+                                }
+                                echo $cut_text . '...';
+                            ?>
+                            <a href="<?=base_url('profil/detail/').$pr['id_profil'] ?>" class="button_all">Selengkapnya</a>
+                        <?php }else{ ?>
+                            <?=$pr['nama_profil'] ?>
+                            <a href="<?=base_url('profil/detail/').$pr['id_profil'] ?>" class="button_all">Selengkapnya</a>
+                        <?php } ?>
+                    </div>
+                <br>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+</section>
+<!-- End Building Construction Area -->
