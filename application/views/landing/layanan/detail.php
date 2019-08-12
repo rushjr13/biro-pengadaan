@@ -25,20 +25,52 @@
 						<div class="col-md-3">&nbsp;</div>
 						<div class="col-md-6">
 		                    <h2><?=$layanan['nama_layanan'] ?></h2>
-		                    <form class="form-inline contact_box" action="<?=base_url('layanan/detail/').$layanan['id_layanan'] ?>" method="post">
-		                        <input type="text" class="form-control input_box" id="nama" name="nama" placeholder="Nama Lengkap" required>
-		                        <input type="text" class="form-control input_box" id="telpon" name="telpon" placeholder="No.Telepon / HP">
-		                        <input type="text" class="form-control input_box" id="email" name="email" placeholder="Alamat Email">
-		                        <input type="text" class="form-control input_box" id="email" name="email" placeholder="Subject">
-		                        <select type="text" class="form-control input_box" id="id_layanan" name="id_layanan">
-		                        	<option value="">Jenis Layanan Yang Di Adukan</option>
-		                        	<?php foreach ($layanan_utama as $lu): ?>
-			                        	<option value="<?=$lu['id_layanan'] ?>"><?=$lu['nama_layanan'] ?></option>
-		                        	<?php endforeach ?>
-		                        </select>
-		                        <textarea class="form-control input_box" id="isi" name="isi" placeholder="Masukkan Aduan Anda"></textarea>
-		                        <button type="submit" class="btn btn-default">Kirim</button>
-		                    </form>
+		                    <?php if($layanan['id_layanan']==11){ ?>
+			                    <form class="form-inline contact_box" action="<?=base_url('layanan/detail/').$layanan['id_layanan'] ?>" method="post">
+			                        <?php echo form_error('nama', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <input type="text" class="form-control input_box" id="nama" name="nama" placeholder="Nama Lengkap" value="<?=set_value('nama') ?>">
+			                        <?php echo form_error('telpon', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <input type="text" class="form-control input_box" id="telpon" name="telpon" placeholder="No.Telepon / HP" value="<?=set_value('telpon') ?>">
+			                        <?php echo form_error('email', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <input type="text" class="form-control input_box" id="email" name="email" placeholder="Alamat Email" value="<?=set_value('email') ?>">
+			                        <?php echo form_error('id_layanan', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <select type="text" class="form-control input_box" id="id_layanan" name="id_layanan">
+			                        	<option value="">Jenis Layanan Yang Di Adukan</option>
+			                        	<?php foreach ($layanan_utama as $lu): ?>
+				                        	<option value="<?=$lu['id_layanan'] ?>"><?=$lu['nama_layanan'] ?></option>
+			                        	<?php endforeach ?>
+			                        </select>
+			                        <?php echo form_error('isi', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <textarea class="form-control input_box" id="isi" name="isi" placeholder="Masukkan Aduan Anda"><?=set_value('isi') ?></textarea>
+			                        <div class="row">
+			                        	<div class="col-md-6">
+					                        <button type="submit" class="btn btn-default">Kirim</button>
+			                        	</div>
+			                        	<div class="col-md-6 text-right">
+					                        <a href="<?=base_url('layanan') ?>" class="btn btn-danger">Kembali</a>
+			                        	</div>
+			                        </div>
+			                    </form>
+		                    <?php }else if($layanan['id_layanan']==12){ ?>
+		                    	<form class="form-inline contact_box" action="<?=base_url('layanan/detail/').$layanan['id_layanan'] ?>" method="post">
+			                        <?php echo form_error('nama', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <input type="text" class="form-control input_box" id="nama" name="nama" placeholder="Nama Lengkap" value="<?=set_value('nama') ?>">
+			                        <?php echo form_error('telpon', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <input type="text" class="form-control input_box" id="telpon" name="telpon" placeholder="No.Telepon / HP" value="<?=set_value('telpon') ?>">
+			                        <?php echo form_error('email', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <input type="text" class="form-control input_box" id="email" name="email" placeholder="Alamat Email" value="<?=set_value('email') ?>">
+			                        <?php echo form_error('isi', '<small class="text-danger ml-3" style="font-style:italic;">', '</small>'); ?>
+			                        <textarea class="form-control input_box" id="isi" name="isi" placeholder="Masukkan Kritik dan/atau Saran Anda"><?=set_value('isi') ?></textarea>
+			                        <div class="row">
+			                        	<div class="col-md-6">
+					                        <button type="submit" class="btn btn-default">Kirim</button>
+			                        	</div>
+			                        	<div class="col-md-6 text-right">
+					                        <a href="<?=base_url('layanan') ?>" class="btn btn-danger">Kembali</a>
+			                        	</div>
+			                        </div>
+			                    </form>
+		                    <?php } ?>
 						</div>
 						<div class="col-md-3">&nbsp;</div>
 	                </div>

@@ -122,7 +122,7 @@
 					      	</small>
 					      </td>
 					      <td class="align-middle"><?=$adu['nama_layanan'] ?></td>
-					      <td class="align-middle"><?=$adu['isi'] ?></td>
+					      <td class="align-middle"><?=$adu['isi_aduan'] ?></td>
 					      <td class="align-middle text-center">
 					        <?php if($adu['status']=='Pending'){ ?>
 					          <button type="button" class="btn btn-sm btn-circle btn-warning" id="status" data-toggle="modal" data-target="#statusModal" data-id="<?=$adu['id'] ?>" data-status="Proses" data-ket="Memproses" data-tombol="btn btn-sm btn-circle btn-success" data-icon="fa fa-fw fa-retweet" title="Proses Aduan">
