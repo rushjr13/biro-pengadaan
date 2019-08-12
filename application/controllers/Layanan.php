@@ -36,8 +36,9 @@ class Layanan extends CI_Controller {
 			$this->form_validation->set_rules('telpon', 'No. Telepon/HP', 'required',[
 				'required' => 'No. Telepon/HP Harus Diisi!'
 			]);
-			$this->form_validation->set_rules('email', 'Email', 'required',[
-				'required' => 'Email Harus Diisi!'
+			$this->form_validation->set_rules('email', 'Email', 'required|valid_email',[
+				'required' => 'Email Harus Diisi!',
+				'valid_email' => 'Email Tidak Valid!'
 			]);
 			$this->form_validation->set_rules('id_layanan', 'Jenis Layanan', 'required',[
 				'required' => 'Jenis Layanan Harus Dipilih!'
@@ -67,10 +68,11 @@ class Layanan extends CI_Controller {
 					'email'=>$email,
 					'id_layanan'=>$id_layanan,
 					'isi_aduan'=>$isi,
+					'tanggal'=>time(),
 					'status'=>'Pending'
 				];
 				$this->db->insert('pengaduan', $data);
-				$this->session->set_flashdata('info', '<div class="text-success text-center font-weight-bold">Aduan Anda telah dikirim!</div>');
+				$this->session->set_flashdata('info', '<div class="text-success text-center font-weight-bold">Aduan Anda telah dikirim! Terima Kasih atas partisipasi Anda.</div>');
 				redirect('layanan');
 			}
 		}else if($id==12){
@@ -80,8 +82,9 @@ class Layanan extends CI_Controller {
 			$this->form_validation->set_rules('telpon', 'No. Telepon/HP', 'required',[
 				'required' => 'No. Telepon/HP Harus Diisi!'
 			]);
-			$this->form_validation->set_rules('email', 'Email', 'required',[
-				'required' => 'Email Harus Diisi!'
+			$this->form_validation->set_rules('email', 'Email', 'required|valid_email',[
+				'required' => 'Email Harus Diisi!',
+				'valid_email' => 'Email Tidak Valid!'
 			]);
 			$this->form_validation->set_rules('isi', 'Masukkan', 'required',[
 				'required' => 'Masukkan Kritik dan atau Saran Anda!'
@@ -96,7 +99,22 @@ class Layanan extends CI_Controller {
 				$this->load->view('landing/layanan/detail', $data);
 				$this->load->view('template/landing/footer', $data);
 			}else{
-				echo "proses kritik & saran";
+				$nama = $this->input->post('nama');
+				$telpon = $this->input->post('telpon');
+				$email = $this->input->post('email');
+				$isi = $this->input->post('isi');
+
+				$data = [
+					'nama'=>$nama,
+					'telpon'=>$telpon,
+					'email'=>$email,
+					'isi_ks'=>$isi,
+					'tanggal'=>time(),
+					'status'=>'Pending'
+				];
+				$this->db->insert('kds', $data);
+				$this->session->set_flashdata('info', '<div class="text-success text-center font-weight-bold">Saran dan atau Kritik Anda telah dikirim! Terima Kasih atas partisipasi Anda.</div>');
+				redirect('layanan');
 			}
 		}
 	}

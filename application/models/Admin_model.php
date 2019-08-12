@@ -309,6 +309,21 @@ class Admin_model extends CI_Model {
         }
     }
 
+    // KRITIK & SARAN
+    function kds($id=null){
+        if($id==null){
+            $this->db->select('*');
+            $this->db->from('kds');
+            $this->db->order_by('tanggal', 'DESC');
+            return $this->db->get()->result_array();
+        } else {
+            $this->db->select('*');
+            $this->db->from('kds');
+            $this->db->where('id', $id);
+            return $this->db->get()->row_array();
+        }
+    }
+
     // GALERI LENGKAP
     function galeri_lengkap($id=null){
         if($id==null){

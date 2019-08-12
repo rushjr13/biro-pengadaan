@@ -158,6 +158,7 @@ class Menu extends CI_Controller {
 					$data['menulanding'] = $this->Admin_model->menulanding();
 					$data['layanan'] = $this->Admin_model->layanan_detail($id);
 					$data['pengaduan'] = $this->Admin_model->pengaduan();
+					$data['kds'] = $this->Admin_model->kds();
 					$this->load->view('template/dashboard/header', $data);
 					$this->load->view('template/dashboard/sidebar', $data);
 					$this->load->view('template/dashboard/topbar', $data);
