@@ -324,46 +324,18 @@ class Admin_model extends CI_Model {
         }
     }
 
-    // GALERI LENGKAP
-    function galeri_lengkap($id=null){
-        if($id==null){
-            $this->db->select('*');
-            $this->db->from('galeri_lengkap');
-            $this->db->join('pengguna', 'pengguna.id_pengguna = galeri_lengkap.id_pengguna');
-            $this->db->order_by('galeri_lengkap.id', 'DESC');
-            return $this->db->get()->result_array();
-        } else {
-            $this->db->select('*');
-            $this->db->from('galeri_lengkap');
-            $this->db->join('pengguna', 'pengguna.id_pengguna = galeri_lengkap.id_pengguna');
-            $this->db->where('galeri_lengkap.id', $id);
-            return $this->db->get()->row_array();
-        }
-    }
-
-    // GALERI LENGKAP
-    function galeri_limit($id){
-        $this->db->select('*');
-        $this->db->from('galeri_lengkap');
-        $this->db->join('pengguna', 'pengguna.id_pengguna = galeri_lengkap.id_pengguna');
-        $this->db->where('galeri_lengkap.id !=', $id);
-        $this->db->order_by('galeri_lengkap.id', 'DESC');
-        $this->db->limit(10);
-        return $this->db->get()->result_array();
-    }
-
     // KOMENTAR GALERI
     function komentar_galeri($id){
         $this->db->select('*');
         $this->db->from('komentar_galeri');
-        $this->db->where('komentar_galeri.id_galeri', $id);
-        $this->db->order_by('komentar_galeri.id_kg', 'DESC');
+        $this->db->where('id_gk', $id);
+        $this->db->order_by('tgl_komentar', 'DESC');
         return $this->db->get()->result_array();
     }
 
     // JUMLAH KOMENTAR GALERI
     function jlh_komentar_galeri($id){
-        $this->db->where('id_galeri', $id);
+        $this->db->where('id_gk', $id);
         return $this->db->get('komentar_galeri')->num_rows();
     }
 
@@ -372,14 +344,29 @@ class Admin_model extends CI_Model {
         if($id_gk==null){
             $this->db->select('*');
             $this->db->from('galeri_kegiatan');
-            $this->db->order_by('galeri_kegiatan.id_gk', 'DESC');
+            $this->db->order_by('tgl_gk', 'DESC');
             return $this->db->get()->result_array();
         } else {
             $this->db->select('*');
             $this->db->from('galeri_kegiatan');
-            $this->db->where('galeri_kegiatan.id_gk', $id_gk);
+            $this->db->where('id_gk', $id_gk);
             return $this->db->get()->row_array();
         }
+    }
+
+    // JUMLAH DOKUMENTASI GALERI
+    function jlh_dk($id){
+        $this->db->where('id_gk', $id);
+        return $this->db->get('dok_kegiatan')->num_rows();
+    }
+
+    // DOKUMENTASI GALERI
+    function dok_kegiatan($id){
+        $this->db->select('*');
+        $this->db->from('dok_kegiatan');
+        $this->db->where('dok_kegiatan.id_gk', $id);
+        $this->db->order_by('dok_kegiatan.id_dk', 'ASC');
+        return $this->db->get()->result_array();
     }
 
     // MONEV

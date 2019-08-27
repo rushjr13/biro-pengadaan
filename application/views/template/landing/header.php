@@ -15,6 +15,7 @@
     <link href="<?=base_url('assets/landing/')?>vendors/animate/animate.css" rel="stylesheet">
     <!-- Icon CSS-->
 	<link rel="stylesheet" href="<?=base_url('assets/landing/')?>vendors/font-awesome/css/font-awesome.min.css">
+    
     <!-- Camera Slider -->
     <link rel="stylesheet" href="<?=base_url('assets/landing/')?>vendors/camera-slider/camera.css">
     <!-- Owlcarousel CSS-->

@@ -26,7 +26,7 @@ class Profil extends CI_Controller {
 
 		// KHUSUS
 		if($id==null){
-			$this->session->set_flashdata('info', '<div class="text-danger text-center font-weight-bold">Tidak ada profil yang dipilih!</div>');
+			$this->session->set_flashdata('info', '<div class="text-center"><button class="btn btn-danger" disabled>Tidak ada profil yang dipilih!<br><br></div>');
 			redirect('profil');
 		}else{
 			$data['judul'] = "Profil";

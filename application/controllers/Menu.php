@@ -47,7 +47,7 @@ class Menu extends CI_Controller {
 		$this->load->view('template/dashboard/footer', $data);
 	}
 
-	public function landing($hal=null, $id=null)
+	public function landing($hal=null, $id=null, $opsi=null)
 	{
 		// UMUM
 		$id_pengguna = $this->session->userdata('id_user_masuk');
@@ -64,6 +64,7 @@ class Menu extends CI_Controller {
 			$data['profil'] = $this->Admin_model->profil();
 			$data['layanan_utama'] = $this->Admin_model->layanan_utama();
 			$data['layanan_pendukung'] = $this->Admin_model->layanan_pendukung();
+			$data['galeri_kegiatan'] = $this->Admin_model->galeri_kegiatan();
 			$this->load->view('template/dashboard/header', $data);
 			$this->load->view('template/dashboard/sidebar', $data);
 			$this->load->view('template/dashboard/topbar', $data);
@@ -177,6 +178,145 @@ class Menu extends CI_Controller {
 															  </button>
 															</div>');
 					redirect('menu/landing/layanan/'.$id);
+				}
+			}
+		} else if($hal=='galeri'){
+			if($id==null){
+				$this->session->set_flashdata('info', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+														  <i class="fa fa-fw fa-ban"></i> Tidak ada galeri yang dipilih!
+														  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														    <span aria-hidden="true">&times;</span>
+														  </button>
+														</div>');
+				redirect('menu/landing');
+			}else if($id=='tambah'){
+				$tgl_gk = $this->input->post('tgl_gk');
+				$judul_gk = $this->input->post('judul_gk');
+				$uraian = $this->input->post('uraian');
+
+				$data = [
+					'tgl_gk'=>$tgl_gk,
+					'judul_gk'=>$judul_gk,
+					'uraian'=>$uraian
+				];
+
+				$this->db->insert('galeri_kegiatan', $data);
+				$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+														  <i class="fa fa-fw fa-info"></i> Galeri Kegiatan <strong>'.$judul_gk.'</strong> telah ditambahkan!
+														  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														    <span aria-hidden="true">&times;</span>
+														  </button>
+														</div>');
+				redirect('menu/landing/');
+			} else if($id=='ubah'){
+				$id_gk = $this->input->post('id_gk');
+				$tgl_gk = $this->input->post('tgl_gk');
+				$judul_gk = $this->input->post('judul_gk');
+				$uraian = $this->input->post('uraian');
+
+				$data = [
+					'tgl_gk'=>$tgl_gk,
+					'judul_gk'=>$judul_gk,
+					'uraian'=>$uraian
+				];
+
+				$this->db->set($data);
+				$this->db->where('id_gk', $id_gk);
+				$this->db->update('galeri_kegiatan');
+				$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+														  <i class="fa fa-fw fa-info"></i> Galeri Kegiatan <strong>'.$judul_gk.'</strong> telah diperbarui!
+														  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+														    <span aria-hidden="true">&times;</span>
+														  </button>
+														</div>');
+				redirect('menu/landing/');
+			} else if($id=='dokumentasi'){
+				if($opsi==null){
+					$this->session->set_flashdata('info', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-ban"></i> Tidak ada galeri yang dipilih!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing');
+				}else{
+					$data['judul'] = "Landing";
+					$data['subjudul'] = "Dokumentasi";
+					$data['jlh_dk'] = $this->Admin_model->jlh_dk($opsi);
+					$data['dok_kegiatan'] = $this->Admin_model->dok_kegiatan($opsi);
+					$data['galeri_kegiatan'] = $this->Admin_model->galeri_kegiatan($opsi);
+					$this->load->view('template/dashboard/header', $data);
+					$this->load->view('template/dashboard/sidebar', $data);
+					$this->load->view('template/dashboard/topbar', $data);
+					$this->load->view('menu/landing/dok_kegiatan', $data);
+					$this->load->view('template/dashboard/footer', $data);
+				}
+			} else if($id=='tambahdokumentasi'){
+				if($opsi==null){
+					$this->session->set_flashdata('info', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-ban"></i> Tidak ada galeri yang dipilih!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing');
+				}else{
+					$id_gk = $this->input->post('id_gk');
+					$judul_gk = $this->input->post('judul_gk');
+					// Cek gambar yang diupload
+					$dok_upload = $_FILES['dok']['name'];
+
+					if($dok_upload){
+						$config['allowed_types']	= 'jpg|jpeg|png|pdf';
+						$config['max_size']			= '1024';
+						$config['upload_path']		= './assets/admin/img/dok_keg/';
+						$this->load->library('upload', $config);
+						if($this->upload->do_upload('dok')){
+							$dok = $this->upload->data('file_name');
+							$data_dok = [
+								'id_gk'=>$id_gk,
+								'dokumentasi'=>$dok
+							];
+							$this->db->insert('dok_kegiatan', $data_dok);
+
+							$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+																	  <i class="fa fa-fw fa-info-circle"></i> Dokumentasi Kegiatan <strong>'.$judul_gk.'</strong> telah ditambahkan!
+																	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																	    <span aria-hidden="true">&times;</span>
+																	  </button>
+																	</div>');
+							redirect('menu/landing/galeri/dokumentasi/'.$opsi);
+						} else {
+							echo $this->upload->display_errors();
+						}
+					}
+				}
+			} else if($id=='hapusdokumentasi'){
+				if($opsi==null){
+					$this->session->set_flashdata('info', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-ban"></i> Tidak ada dokumentasi yang dipilih!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing');
+				}else{
+					$id_dk = $this->input->post('id_dk');
+					$id_gk = $this->input->post('id_gk');
+					$judul_gk = $this->input->post('judul_gk');
+					$dokumentasi = $this->input->post('dokumentasi');
+
+					unlink(FCPATH.'assets/admin/img/dok_keg/'.$dokumentasi);
+					$this->db->where('id_dk', $id_dk);
+					$this->db->delete('dok_kegiatan');
+
+					$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-info-circle"></i> Dokumentasi Kegiatan <strong>'.$judul_gk.'</strong> telah dihapus!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing/galeri/dokumentasi/'.$id_gk);
 				}
 			}
 		}

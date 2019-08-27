@@ -51,7 +51,7 @@
 						    <th class="align-middle" width="18%">PEMBERI PENGADUAN</th>
 						    <th class="align-middle" width="25%">LAYANAN YANG DIADUKAN</th>
 						    <th class="align-middle">ISI ADUAN</th>
-						    <th class="align-middle text-center" width="7%">OPSI</th>
+						    <!-- <th class="align-middle text-center" width="7%">OPSI</th> -->
 						  </tr>
 						</thead>
 						<tbody>
@@ -131,13 +131,13 @@
 						      </td>
 						      <td class="align-middle"><?=$adu['nama_layanan'] ?></td>
 						      <td class="align-middle"><?=$adu['isi_aduan'] ?></td>
-						      <td class="align-middle text-center">
+						      <!-- <td class="align-middle text-center">
 						        <?php if($adu['status']=='Pending'){ ?>
-						          <button type="button" class="btn btn-sm btn-circle btn-warning" id="status" data-toggle="modal" data-target="#statusModal" data-id="<?=$adu['id'] ?>" data-status="Proses" data-ket="Memproses" data-tombol="btn btn-sm btn-circle btn-success" data-icon="fa fa-fw fa-retweet" title="Proses Aduan">
+						          <button type="button" class="btn btn-sm btn-circle btn-warning" id="status_aduan" data-toggle="modal" data-target="#statusaduanModal" data-id="<?=$adu['id'] ?>" data-status="Proses" data-ket="Memproses" data-tombol="btn btn-sm btn-circle btn-success" data-icon="fa fa-fw fa-retweet" title="Proses Aduan">
 						            <i class="fa fa-fw fa-ban"></i>
 						          </button>
 						        <?php }else if($adu['status']=='Proses'){ ?>
-						          <button type="button" class="btn btn-sm btn-circle btn-success" id="status" data-toggle="modal" data-target="#statusModal" data-id="<?=$adu['id'] ?>" data-status="Selesai" data-ket="Selesaikan" data-tombol="btn btn-sm btn-circle btn-primary" data-icon="fa fa-fw fa-check" title="Selesaikan">
+						          <button type="button" class="btn btn-sm btn-circle btn-success" id="status_aduan" data-toggle="modal" data-target="#statusaduanModal" data-id="<?=$adu['id'] ?>" data-status="Selesai" data-ket="Selesaikan" data-tombol="btn btn-sm btn-circle btn-primary" data-icon="fa fa-fw fa-check" title="Selesaikan">
 						            <i class="fa fa-fw fa-retweet"></i>
 						          </button>
 						        <?php }else if($adu['status']=='Selesai'){ ?>
@@ -148,7 +148,7 @@
 						          <i class="fa fa-fw fa-trash"></i>
 						        </button>
 						        <?php } ?>
-						      </td>
+						      </td> -->
 						    </tr>
 						  <?php endforeach ?>
 						</tbody>
@@ -163,7 +163,7 @@
 						    <th class="align-middle" width="15%">TANGGAL</th>
 						    <th class="align-middle" width="18%">DARI</th>
 						    <th class="align-middle">ISI SARAN & KRITIK</th>
-						    <th class="align-middle text-center" width="7%">OPSI</th>
+						    <!-- <th class="align-middle text-center" width="7%">OPSI</th> -->
 						  </tr>
 						</thead>
 						<tbody>
@@ -242,7 +242,7 @@
 						      	</small>
 						      </td>
 						      <td class="align-middle"><?=$ks['isi_ks'] ?></td>
-						      <td class="align-middle text-center">
+						      <!-- <td class="align-middle text-center">
 						        <?php if($ks['status']=='Pending'){ ?>
 						          <button type="button" class="btn btn-sm btn-circle btn-warning" id="status" data-toggle="modal" data-target="#statusModal" data-id="<?=$ks['id'] ?>" data-status="Respon" data-ket="Respon" data-tombol="btn btn-sm btn-circle btn-success" data-icon="fa fa-fw fa-retweet" title="Proses Aduan">
 						            <i class="fa fa-fw fa-ban"></i>
@@ -255,7 +255,7 @@
 						          <i class="fa fa-fw fa-trash"></i>
 						        </button>
 						        <?php } ?>
-						      </td>
+						      </td> -->
 						    </tr>
 						  <?php endforeach ?>
 						</tbody>
@@ -266,23 +266,23 @@
 	</div>
 <?php } ?>
 
-<!-- Modal Status -->
-<div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel" aria-hidden="true">
+<!-- Modal Status Pengaduan-->
+<div class="modal fade" id="statusaduanModal" tabindex="-1" role="dialog" aria-labelledby="statusaduanModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="statusModalLabel">Status Aduan Publik</h5>
+        <h5 class="modal-title" id="statusaduanModalLabel">Status Aduan Publik</h5>
       </div>
-      <form id="formstatus" action="" method="post">
+      <form id="formstatusaduan" action="" method="post">
         <div class="modal-body">
           <p id="isi">Keterangan</p>
           <input class="form-control" type="text" id="id" name="id">
           <input class="form-control" type="text" id="status" name="status">
-          <input class="form-control" type="text" id="aksi" name="aksi" value="statusaduan">
+          <input class="form-control" type="text" id="ket" name="ket">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-circle btn-secondary" data-dismiss="modal" title="Batal"><i class="fa fa-fw fa-times"></i></button>
-          <button type="submit" class="btn btn-sm btn-circle btn-primary" id="tblstatus" title="Status"><i id="icontblstatus" class="fa fa-fw fa-user"></i></button>
+          <button type="submit" class="btn btn-sm btn-circle btn-primary" id="tblstatusaduan" title="Status"><i id="icontblstatusaduan" class="fa fa-fw fa-user"></i></button>
         </div>
       </form>
     </div>
@@ -292,19 +292,20 @@
 <script src="<?php echo base_url() ?>assets/js/jquery-1.10.2.js"></script>
 <script>
 
-    $(document).on("click", "#status", function() {
+    $(document).on("click", "#status_aduan", function() {
         var id = $(this).data('id');
         var status = $(this).data('status');
         var ket = $(this).data('ket');
         var tombol = $(this).data('tombol');
         var icon = $(this).data('icon');
-        $("#statusModal #id").val(id);
-        $("#statusModal #status").val(status);
-        $("#statusModal #isi").html("Anda ingin "+ket+" aduan publik ini?");
-        $("#statusModal #formstatus").attr("action","<?php echo base_url() ?>menu/landing/layanan/"+id);
-        $("#statusModal #tblstatus").attr("title",ket);
-        $("#statusModal #tblstatus").attr("class",tombol);
-        $("#statusModal #icontblstatus").attr("class",icon);
+        $("#statusaduanModal #id").val(id);
+        $("#statusaduanModal #status").val(status);
+        $("#statusaduanModal #ket").val(ket);
+        $("#statusaduanModal #isi").html("Anda ingin "+ket+" aduan publik ini?");
+        $("#statusaduanModal #formstatusaduan").attr("action","<?php echo base_url() ?>menu/landing/layanan/"+id);
+        $("#statusaduanModal #tblstatusaduan").attr("title",ket);
+        $("#statusaduanModal #tblstatusaduan").attr("class",tombol);
+        $("#statusaduanModal #icontblstatusaduan").attr("class",icon);
     });
 
     $(document).on("click", "#hapus", function() {
