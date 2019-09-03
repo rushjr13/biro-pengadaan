@@ -20,7 +20,7 @@ class Menu extends CI_Controller {
 		$data['menu'] = $this->Admin_model->menu();
 
 		// KHUSUS
-		$data['judul'] = "Dashboard";
+		$data['judul'] = "Landing";
 		$this->load->view('template/dashboard/header', $data);
 		$this->load->view('template/dashboard/sidebar', $data);
 		$this->load->view('template/dashboard/topbar', $data);

@@ -226,6 +226,39 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+    // PROGRAM
+    function program($id_program=null){
+        if($id_program==null){
+            $this->db->select('*');
+            $this->db->from('program');
+            $this->db->order_by('id_program', 'ASC');
+            return $this->db->get()->result_array();
+        } else {
+            $this->db->select('*');
+            $this->db->from('program');
+            $this->db->where('id_program', $id_program);
+            return $this->db->get()->row_array();
+        }
+    }
+
+    // KEGIATAN
+    function kegiatan($id_kegiatan=null){
+        if($id_kegiatan==null){
+            $this->db->select('*');
+            $this->db->from('kegiatan');
+            $this->db->join('program', 'program.id_program = kegiatan.id_program');
+            $this->db->order_by('kegiatan.id_program', 'ASC');
+            $this->db->order_by('kegiatan.id_kegiatan', 'ASC');
+            return $this->db->get()->result_array();
+        } else {
+            $this->db->select('*');
+            $this->db->from('kegiatan');
+            $this->db->join('program', 'program.id_program = kegiatan.id_program');
+            $this->db->where('kegiatan.id_kegiatan', $id_kegiatan);
+            return $this->db->get()->row_array();
+        }
+    }
+
     // MENU LANDING
     function menulanding($id_ml=null){
         if($id_ml==null){

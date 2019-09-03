@@ -76,58 +76,28 @@
     <section class="about_us_area about_us_2 row">
         <div class="container">
             <div class="tittle wow fadeInUp">
-                <h2>ABOUT US</h2>
-                <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry</h4>
+                <h2>TENTANG KAMI</h2>
+                <h4>Biro Pengadaan Sekretariat Daerah Provinsi Gorontalo</h4>
             </div>
             <div class="row about_row">
-                <div class="who_we_area col-md-7">
+                <div class="who_we_area col-md-5">
                     <div class="subtittle">
                         <h2>WHO WE ARE</h2>
                     </div>
                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
                     <a href="#" class="button_all">Contact Now</a>
                 </div>
-                <div class="col-md-5 our_skill_inner">
-                    <div class="single_skill">
-                        <h3>Architecture</h3>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress_parcent"><span class="counter2">89</span>%</div>
+                <div class="col-md-7 our_skill_inner">
+                    <?php foreach ($kegiatan as $keg): ?>
+                        <div class="single_skill">
+                            <h3><?=$keg['nama_kegiatan'] ?></h3>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="<?=$keg['realisasi']/$keg['anggaran']*100; ?>" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress_parcent"><span class="counter2"><?=number_format($keg['realisasi']/$keg['anggaran']*100, 0, ',', '.'); ?></span>%</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="single_skill">
-                        <h3>Building</h3>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress_parcent"><span class="counter2">58</span>%</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single_skill">
-                        <h3>Construction</h3>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress_parcent"><span class="counter2">44</span>%</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single_skill">
-                        <h3>Design</h3>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress_parcent"><span class="counter2">76</span>%</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single_skill">
-                        <h3>Painting</h3>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress_parcent"><span class="counter2">64</span>%</div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach ?>
                 </div>
             </div>
         </div>

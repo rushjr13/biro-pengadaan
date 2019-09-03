@@ -11,6 +11,8 @@ class Beranda extends CI_Controller {
 
 		// KHUSUS
 		$data['judul'] = "Beranda";
+		$data['program'] = $this->Admin_model->program();
+		$data['kegiatan'] = $this->Admin_model->kegiatan();
 		$this->load->view('template/landing/header', $data);
 		$this->load->view('template/landing/navbar', $data);
 		$this->load->view('landing/index', $data);
