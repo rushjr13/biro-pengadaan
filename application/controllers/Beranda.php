@@ -8,6 +8,7 @@ class Beranda extends CI_Controller {
 		// UMUM
 		$data['pengaturan'] = $this->Admin_model->pengaturan();
 		$data['menulanding'] = $this->Admin_model->menulanding();
+		$data['slider'] = $this->Admin_model->slider();
 
 		// KHUSUS
 		$data['judul'] = "Beranda";

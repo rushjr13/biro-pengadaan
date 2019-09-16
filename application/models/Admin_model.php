@@ -168,6 +168,15 @@ class Admin_model extends CI_Model {
         }
     }
 
+    // SLIDER
+    function slider($id=null){
+        if($id==null){
+            return $this->db->get('slider')->result_array();
+        } else {
+            return $this->db->get_where('slider', ['id'=>$id])->row_array();
+        }
+    }
+
 	// CEK PENGGUNA
 	function cek_pengguna($email){
 		$this->db->select('*');

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 14 Agu 2019 pada 07.58
--- Versi Server: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Waktu pembuatan: 10 Sep 2019 pada 05.25
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -68,6 +68,40 @@ INSERT INTO `antrian` (`id_antrian`, `tgl_antrian`, `no_antrian`, `panggil`) VAL
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `dok_kegiatan`
+--
+
+CREATE TABLE `dok_kegiatan` (
+  `id_dk` int(11) NOT NULL,
+  `id_gk` int(11) NOT NULL,
+  `dokumentasi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `galeri_kegiatan`
+--
+
+CREATE TABLE `galeri_kegiatan` (
+  `id_gk` int(11) NOT NULL,
+  `tgl_gk` date NOT NULL,
+  `judul_gk` varchar(255) NOT NULL,
+  `uraian` text NOT NULL,
+  `hit` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `galeri_kegiatan`
+--
+
+INSERT INTO `galeri_kegiatan` (`id_gk`, `tgl_gk`, `judul_gk`, `uraian`, `hit`) VALUES
+(1, '2019-08-26', 'Kegiatan Pelestarian', 'Pelestarian lingkungan\r\n', 5),
+(2, '2019-08-15', 'Pembinaan', 'astaga naga sad', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `kds`
 --
 
@@ -81,14 +115,60 @@ CREATE TABLE `kds` (
   `status` enum('Pending','Respon') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `kds`
+-- Struktur dari tabel `kegiatan`
 --
 
-INSERT INTO `kds` (`id`, `nama`, `telpon`, `email`, `isi_ks`, `tanggal`, `status`) VALUES
-(1, 'Ruslan Samuel', '08514533166', 'ruslansamuelgorontalo@gmail.com', 'tampilan web harus di perbarui lagi', 1565161694, 'Pending'),
-(2, 'Abdulrizal M. Pauweni, S.SI', '085145123456', 'abdulrizalpauweni@rocketmail.com', 'selalu error, perbaiki jaringan server', 1565580168, 'Pending'),
-(3, 'Ms. Antonette Quigley', '085145123523', 'anrizsi10@gmail.com', 'asad', 1565581195, 'Pending');
+CREATE TABLE `kegiatan` (
+  `id_kegiatan` int(11) NOT NULL,
+  `id_program` int(11) NOT NULL,
+  `nama_kegiatan` varchar(255) NOT NULL,
+  `anggaran` varchar(255) NOT NULL,
+  `realisasi` varchar(255) NOT NULL,
+  `tf` varchar(11) NOT NULL,
+  `rf` varchar(11) NOT NULL,
+  `tk` varchar(11) NOT NULL,
+  `rk` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kegiatan`
+--
+
+INSERT INTO `kegiatan` (`id_kegiatan`, `id_program`, `nama_kegiatan`, `anggaran`, `realisasi`, `tf`, `rf`, `tk`, `rk`) VALUES
+(1, 1, 'Pelayanan Jasa Administrasi Perkantoran (Biro Pengadaan)', '717600000', '464641076', '75.68', '67.48', '69.77', '64.74'),
+(2, 1, 'Peningkatan Sarana dan Prasarana Perkantoran (Biro Pengadaan)', '1841849000', '1775534879', '99.76', '94.95', '99.60', '96.40'),
+(3, 1, 'Peningkatan Kapasitas SDM Aparatur', '50000000', '50000000', '100.00', '100.00', '100.00', '100.00'),
+(4, 2, 'Perencanaan, Koordinasi, Monitoring dan Evaluasi', '220825000', '206142287', '80.40', '95.66', '65.81', '93.35'),
+(5, 3, 'Pengembangan Strategi Kebijakan dan Penerapan Regulasi PBJP', '100000000', '74751019', '95.15', '77.70', '80.94', '74.75'),
+(6, 3, 'Pengembangan LPSE dan Informasi', '55000000', '35425885', '100.00', '67.28', '67.69', '64.41'),
+(7, 3, 'Klarifikasi, Verifikasi dan Koordinasi PBJP', '200000000', '200000000', '100.00', '100.00', '75.75', '100.00'),
+(8, 3, 'Pengelolaan Layanan Konsultasi PBJP', '106380000', '64888100', '77.33', '63.36', '75.30', '61.00');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `komentar_galeri`
+--
+
+CREATE TABLE `komentar_galeri` (
+  `id_kg` int(11) NOT NULL,
+  `id_gk` int(11) NOT NULL,
+  `nama_lengkap` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `telpon` varchar(255) NOT NULL,
+  `isi_komentar` text NOT NULL,
+  `tgl_komentar` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `komentar_galeri`
+--
+
+INSERT INTO `komentar_galeri` (`id_kg`, `id_gk`, `nama_lengkap`, `email`, `telpon`, `isi_komentar`, `tgl_komentar`) VALUES
+(1, 1, 'Ruslan Samuel', 'abdulrizalpauweni@rocketmail.com', '085145123456', 'Ini Komentar saya', 1566878933);
 
 -- --------------------------------------------------------
 
@@ -159,7 +239,8 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` (`id_menu`, `nama_menu`) VALUES
 (1, 'Admin'),
 (2, 'Pengguna'),
-(3, 'Menu');
+(3, 'Menu'),
+(4, 'Landing');
 
 -- --------------------------------------------------------
 
@@ -222,14 +303,6 @@ CREATE TABLE `pengaduan` (
   `status` enum('Pending','Proses','Selesai','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `pengaduan`
---
-
-INSERT INTO `pengaduan` (`id`, `nama`, `telpon`, `email`, `id_layanan`, `isi_aduan`, `tanggal`, `status`) VALUES
-(1, 'Ruslan Samuel', '08514533166', 'ruslansamuelgorontalo@gmail.com', 6, 'ekatalog tidak bisa diakses', 1565161694, 'Pending'),
-(2, 'Abdulrizal M. Pauweni, S.SI', '085145123456', 'abdulrizalpauweni@rocketmail.com', 2, 'tampilan epurchasing error', 1565580168, 'Pending');
-
 -- --------------------------------------------------------
 
 --
@@ -259,7 +332,7 @@ CREATE TABLE `pengaturan` (
 --
 
 INSERT INTO `pengaturan` (`id`, `nama_web`, `alias`, `url`, `alamat`, `telpon`, `email`, `jam_kerja`, `facebook`, `instagram`, `twitter`, `logo`, `icon`, `map`, `info`) VALUES
-('atur', 'Biro Pengadaan', 'BP', 'http://localhost/bp/', 'Biro Pengadaan Setda Provinsi Gorontalo<br>Jl. Sapta Marga Kel. Botu Kec. Dumbo Raya Kota Gorontalo 96118', '(0435) 821277  - 828281', 'bp_provgtlo@gmail.com', 'Senin - Jumat | 08.00 - 16.30 WITA', 'bp_provgtlo', 'bp_provgtlo', 'bp_provgtlo', 'logo.png', 'icon2.png', 'https://maps.google.com/maps?q=kantor%20gubernur%20gorontalo&t=&z=15&ie=UTF8&iwloc=&output=embed', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.');
+('atur', 'Biro Pengadaan', 'BP', 'http://localhost/bp/', 'Biro Pengadaan Setda Provinsi Gorontalo<br>Jl. Sapta Marga Kel. Botu Kec. Dumbo Raya Kota Gorontalo 96118', '(0435) 821277  - 828281', 'bp_provgtlo@gmail.com', 'Senin - Jumat | 08.00 - 16.30 WITA', 'bp_provgtlo', 'bp_provgtlo', 'bp_provgtlo', 'logo.png', 'icon2.png', 'https://maps.google.com/maps?q=kantor%20gubernur%20gorontalo&t=&z=15&ie=UTF8&iwloc=&output=embed', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#39;t look even slightly believable.</p>\r\n');
 
 -- --------------------------------------------------------
 
@@ -285,11 +358,8 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `username`, `password`, `nama_lengkap`, `email`, `jk`, `id_level`, `status`, `foto`, `tgl_daftar`) VALUES
-(1, 'admin', '123456', 'Administrator', 'admin@email.com', 'Perempuan', 1, 1, '', 1557463646),
-(2, 'rushjr', 'samuel93', 'Ruslan Samuel', 'ruslansamuel11@gmailcom', 'Laki-laki', 1, 1, '', 1557463657),
-(4, 'mumut', 'mutiara', 'Mutiara', 'mutiara@gmail.com', 'Perempuan', 2, 1, '', 1558061455),
-(6, 'tes', '123456', 'tes', 'tes@email.com', 'Perempuan', 2, 1, '', 1558061785),
-(7, 'tes2', '123456', 'tes 2', 'tes2@email.com', 'Laki-laki', 2, 1, '', 1558061889);
+(1, 'admin', '123456', 'Administrator', 'admin@email.com', 'Perempuan', 1, 1, 'user.png', 1557463646),
+(2, 'rushjr', '123456', 'Ruslan Samuel', 'ruslansamuel11@gmail.com', 'Laki-laki', 1, 1, 'user.png', 1566289861);
 
 -- --------------------------------------------------------
 
@@ -371,6 +441,26 @@ INSERT INTO `profil` (`id_profil`, `nama_profil`, `tipe`, `isi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `program`
+--
+
+CREATE TABLE `program` (
+  `id_program` int(11) NOT NULL,
+  `nama_program` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `program`
+--
+
+INSERT INTO `program` (`id_program`, `nama_program`) VALUES
+(1, 'Peningkatan Pelayanan Administrasi, Sarana dan Prasarana serta Sumber Daya Aparatur'),
+(2, 'Program Peningkatan Perencanaan, Koordinasi, Monitoring Dan Evaluasi'),
+(3, 'Peningkatan Layanan Pengadaan');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `ptt`
 --
 
@@ -419,7 +509,9 @@ INSERT INTO `submenu` (`id_submenu`, `id_menu`, `nama_submenu`, `url`, `icon`, `
 (3, 2, 'Profil Saya', 'pengguna/profil', 'fa-user', 1),
 (4, 3, 'Dashboard', 'menu', 'fa-list', 1),
 (5, 3, 'Sub Menu', 'menu/submenu', 'fa-list', 1),
-(6, 3, 'Landing', 'menu/landing', 'fa-list', 1);
+(6, 3, 'Landing', 'menu/landing', 'fa-list', 1),
+(7, 4, 'Monev', 'landing/monev', 'fa-list', 1),
+(8, 4, 'Link', 'landing/link', 'fa-link', 1);
 
 -- --------------------------------------------------------
 
@@ -459,203 +551,263 @@ INSERT INTO `tarsasi` (`id_tarsasi`, `bulan`, `tf`, `rf`, `tk`, `rk`) VALUES
 --
 
 --
--- Indexes for table `akses_menu`
+-- Indeks untuk tabel `akses_menu`
 --
 ALTER TABLE `akses_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `antrian`
+-- Indeks untuk tabel `antrian`
 --
 ALTER TABLE `antrian`
   ADD PRIMARY KEY (`id_antrian`);
 
 --
--- Indexes for table `kds`
+-- Indeks untuk tabel `dok_kegiatan`
+--
+ALTER TABLE `dok_kegiatan`
+  ADD PRIMARY KEY (`id_dk`);
+
+--
+-- Indeks untuk tabel `galeri_kegiatan`
+--
+ALTER TABLE `galeri_kegiatan`
+  ADD PRIMARY KEY (`id_gk`);
+
+--
+-- Indeks untuk tabel `kds`
 --
 ALTER TABLE `kds`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `layanan`
+-- Indeks untuk tabel `kegiatan`
+--
+ALTER TABLE `kegiatan`
+  ADD PRIMARY KEY (`id_kegiatan`);
+
+--
+-- Indeks untuk tabel `komentar_galeri`
+--
+ALTER TABLE `komentar_galeri`
+  ADD PRIMARY KEY (`id_kg`);
+
+--
+-- Indeks untuk tabel `layanan`
 --
 ALTER TABLE `layanan`
   ADD PRIMARY KEY (`id_layanan`);
 
 --
--- Indexes for table `level`
+-- Indeks untuk tabel `level`
 --
 ALTER TABLE `level`
   ADD PRIMARY KEY (`id_level`);
 
 --
--- Indexes for table `menu`
+-- Indeks untuk tabel `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
--- Indexes for table `menu_landing`
+-- Indeks untuk tabel `menu_landing`
 --
 ALTER TABLE `menu_landing`
   ADD PRIMARY KEY (`id_ml`);
 
 --
--- Indexes for table `pendidikan`
+-- Indeks untuk tabel `pendidikan`
 --
 ALTER TABLE `pendidikan`
   ADD PRIMARY KEY (`id_pendidikan`);
 
 --
--- Indexes for table `pengaduan`
+-- Indeks untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengaturan`
+-- Indeks untuk tabel `pengaturan`
 --
 ALTER TABLE `pengaturan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengguna`
+-- Indeks untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id_pengguna`);
 
 --
--- Indexes for table `pesan`
+-- Indeks untuk tabel `pesan`
 --
 ALTER TABLE `pesan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pns`
+-- Indeks untuk tabel `pns`
 --
 ALTER TABLE `pns`
   ADD PRIMARY KEY (`id_pns`);
 
 --
--- Indexes for table `profil`
+-- Indeks untuk tabel `profil`
 --
 ALTER TABLE `profil`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indexes for table `ptt`
+-- Indeks untuk tabel `program`
+--
+ALTER TABLE `program`
+  ADD PRIMARY KEY (`id_program`);
+
+--
+-- Indeks untuk tabel `ptt`
 --
 ALTER TABLE `ptt`
   ADD PRIMARY KEY (`id_ptt`);
 
 --
--- Indexes for table `submenu`
+-- Indeks untuk tabel `submenu`
 --
 ALTER TABLE `submenu`
   ADD PRIMARY KEY (`id_submenu`);
 
 --
--- Indexes for table `tarsasi`
+-- Indeks untuk tabel `tarsasi`
 --
 ALTER TABLE `tarsasi`
   ADD PRIMARY KEY (`id_tarsasi`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `akses_menu`
+-- AUTO_INCREMENT untuk tabel `akses_menu`
 --
 ALTER TABLE `akses_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `antrian`
+-- AUTO_INCREMENT untuk tabel `antrian`
 --
 ALTER TABLE `antrian`
   MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `kds`
+-- AUTO_INCREMENT untuk tabel `dok_kegiatan`
 --
-ALTER TABLE `kds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `dok_kegiatan`
+  MODIFY `id_dk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `layanan`
+-- AUTO_INCREMENT untuk tabel `galeri_kegiatan`
+--
+ALTER TABLE `galeri_kegiatan`
+  MODIFY `id_gk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `kds`
+--
+ALTER TABLE `kds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `kegiatan`
+--
+ALTER TABLE `kegiatan`
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `komentar_galeri`
+--
+ALTER TABLE `komentar_galeri`
+  MODIFY `id_kg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `layanan`
 --
 ALTER TABLE `layanan`
   MODIFY `id_layanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `level`
+-- AUTO_INCREMENT untuk tabel `level`
 --
 ALTER TABLE `level`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `menu`
+-- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `menu_landing`
+-- AUTO_INCREMENT untuk tabel `menu_landing`
 --
 ALTER TABLE `menu_landing`
   MODIFY `id_ml` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `pendidikan`
+-- AUTO_INCREMENT untuk tabel `pendidikan`
 --
 ALTER TABLE `pendidikan`
   MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `pengaduan`
+-- AUTO_INCREMENT untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pengguna`
+-- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `pesan`
+-- AUTO_INCREMENT untuk tabel `pesan`
 --
 ALTER TABLE `pesan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `pns`
+-- AUTO_INCREMENT untuk tabel `pns`
 --
 ALTER TABLE `pns`
   MODIFY `id_pns` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `profil`
+-- AUTO_INCREMENT untuk tabel `profil`
 --
 ALTER TABLE `profil`
   MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `ptt`
+-- AUTO_INCREMENT untuk tabel `program`
+--
+ALTER TABLE `program`
+  MODIFY `id_program` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `ptt`
 --
 ALTER TABLE `ptt`
   MODIFY `id_ptt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `submenu`
+-- AUTO_INCREMENT untuk tabel `submenu`
 --
 ALTER TABLE `submenu`
-  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tarsasi`
+-- AUTO_INCREMENT untuk tabel `tarsasi`
 --
 ALTER TABLE `tarsasi`
   MODIFY `id_tarsasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;

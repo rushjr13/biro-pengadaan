@@ -65,6 +65,7 @@ class Menu extends CI_Controller {
 			$data['layanan_utama'] = $this->Admin_model->layanan_utama();
 			$data['layanan_pendukung'] = $this->Admin_model->layanan_pendukung();
 			$data['galeri_kegiatan'] = $this->Admin_model->galeri_kegiatan();
+			$data['slider'] = $this->Admin_model->slider();
 			$this->load->view('template/dashboard/header', $data);
 			$this->load->view('template/dashboard/sidebar', $data);
 			$this->load->view('template/dashboard/topbar', $data);
@@ -317,6 +318,60 @@ class Menu extends CI_Controller {
 															  </button>
 															</div>');
 					redirect('menu/landing/galeri/dokumentasi/'.$id_gk);
+				}
+			} else if($id=='tambahslider'){
+				$nama_slider = $this->input->post('nama_slider');
+				// Cek gambar yang diupload
+				$file_slider_upload = $_FILES['file_slider']['name'];
+
+				if($file_slider_upload){
+					$config['allowed_types']	= 'jpg|jpeg|png';
+					$config['upload_path']		= './assets/landing/images/slider/';
+					$this->load->library('upload', $config);
+					if($this->upload->do_upload('file_slider')){
+						$file_slider = $this->upload->data('file_name');
+						$data_slider = [
+							'nama'=>$nama_slider,
+							'file'=>$file_slider
+						];
+						$this->db->insert('slider', $data_slider);
+
+						$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+																  <i class="fa fa-fw fa-info-circle"></i> Slider telah ditambahkan!
+																  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																    <span aria-hidden="true">&times;</span>
+																  </button>
+																</div>');
+						redirect('menu/landing/');
+					} else {
+						echo $this->upload->display_errors();
+					}
+				}
+			} else if($id=='hapusslider'){
+				if($opsi==null){
+					$this->session->set_flashdata('info', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-ban"></i> Tidak ada gambar slider yang dipilih!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing');
+				}else{
+					$id_slider = $this->input->post('id_slider');
+					$nama_slider = $this->input->post('nama_slider');
+					$file_slider = $this->input->post('file_slider');
+
+					unlink(FCPATH.'assets/landing/images/slider/'.$file_slider);
+					$this->db->where('id', $id_slider);
+					$this->db->delete('slider');
+
+					$this->session->set_flashdata('info', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+															  <i class="fa fa-fw fa-info-circle"></i> Gambar slider Kegiatan <strong>'.$nama_slider.'</strong> telah dihapus!
+															  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															    <span aria-hidden="true">&times;</span>
+															  </button>
+															</div>');
+					redirect('menu/landing/');
 				}
 			}
 		}

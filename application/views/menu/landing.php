@@ -4,6 +4,7 @@
     	<?php foreach ($menulanding as $ml): ?>
 			<a class="list-group-item list-group-item-action" id="list-<?=$ml['url_ml']?>-list" data-toggle="list" href="#list-<?=$ml['url_ml']?>" role="tab" aria-controls="<?=$ml['url_ml']?>"><?=$ml['nama_ml'] ?></a>
     	<?php endforeach ?>
+			<a class="list-group-item list-group-item-action" id="list-slider-list" data-toggle="list" href="#list-slider" role="tab" aria-controls="slider">Slider</a>
     </div>
   </div>
   <div class="col-10">
@@ -245,6 +246,42 @@
 			</div>
 		</div>
 		<!-- KONTAK -->
+
+		<!-- SLIDER -->
+		<div class="tab-pane fade show" id="list-slider" role="tabpanel" aria-labelledby="list-slider">
+			<div class="card shadow border-primary mb-5">
+				<div class="card-header bg-primary text-white">
+					<div class="row">
+						<div class="col-md-8">
+							Gambar Slider Landing Page
+						</div>
+						<div class="col-md-4 text-right">
+							<button type="button" class="btn btn-sm btn-circle btn-primary float-right" data-toggle="modal" data-target="#tambahsliderModal"><i class="fa fa-fw fa-plus"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="card-body row">
+					<?php if($slider){ ?>
+							<?php foreach ($slider as $sl): ?>
+								<div class="col-md-3">
+									<div class="card shadow text-white mb-3">
+								    <img src="<?=base_url('assets/landing/images/slider/').$sl['file'] ?>" class="card-img" alt="<?=$sl['nama'] ?>">
+									  <div class="card-img-overlay">
+									    <h5 class="card-title"><?=$sl['nama'] ?></h5>
+									  	<button class="btn btn-sm btn-circle btn-danger" id="hapusslider" data-toggle="modal" data-target="#hapussliderModal" data-id="<?=$sl['id'] ?>" data-nama="<?=$sl['nama'] ?>" data-file="<?=$sl['file'] ?>" title="Hapus Slider"><i class="fa fa-fw fa-trash"></i></button>
+									  </div>
+									</div>
+								</div>
+							<?php endforeach ?>
+					<?php }else{ ?>
+						<div class="col-12">
+							<div class="alert alert-secondary text-center" role="alert">Tidak ada data yang tersedia!</div>
+						</div>
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+		<!-- SLIDER -->
     </div>
   </div>
 </div>
@@ -342,6 +379,63 @@
   </div>
 </div>
 
+<!-- Modal Tambah Slider-->
+<div class="modal fade" id="tambahsliderModal" tabindex="-1" role="dialog" aria-labelledby="tambahsliderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahsliderModalLabel">Tambah Gambar Slider</h5>
+      </div>
+      <form id="formtambahslider" action="<?=base_url('menu/landing/galeri/tambahslider') ?>" method="post" enctype="multipart/form-data">
+	      <div class="modal-body">
+	      	<div class="form-group row">
+				    <label for="nama_slider" class="col-sm-3 col-form-label">Nama Slider</label>
+				    <div class="col-sm-9">
+				      <input type="text" class="form-control" id="nama_slider" name="nama_slider" placeholder="Nama Slider" required>
+				    </div>
+				  </div>
+				  <div class="form-group row">
+				    <label for="file_slider" class="col-sm-3 col-form-label">File Slider</label>
+				    <div class="col-sm-9">
+						  <div class="custom-file">
+							  <input type="file" class="custom-file-input" id="file_slider" name="file_slider" required>
+							  <label class="custom-file-label" for="file_slider" data-browse="Pilih File">Pilih file dengan format <strong>.jpg, .jpeg, .png, .pdf</strong>!</label>
+							</div>
+				    </div>
+				  </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-sm btn-circle btn-secondary" data-dismiss="modal" title="Batal"><i class="fa fa-fw fa-times"></i></button>
+	        <button type="submit" class="btn btn-sm btn-circle btn-primary" title="Simpan"><i class="fa fa-fw fa-save"></i></button>
+	      </div>
+			</form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Hapus Galeri-->
+<div class="modal fade" id="hapussliderModal" tabindex="-1" role="dialog" aria-labelledby="hapussliderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hapussliderModalLabel">Hapus Gambar Slider</h5>
+      </div>
+      <form id="formhapusslider" action="<?=base_url('menu/landing/galeri/hapusslider') ?>" method="post">
+	      <div class="modal-body">
+	      	<p id="ket">Keterangan</p>
+		      <input type="text" class="form-control" name="id_slider" id="id_slider" required>
+		      <input type="text" class="form-control" id="nama_slider" name="nama_slider" required>
+		      <input type="text" class="form-control" id="file_slider" name="file_slider" required>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-sm btn-circle btn-secondary" data-dismiss="modal" title="Batal"><i class="fa fa-fw fa-times"></i></button>
+	        <button type="submit" class="btn btn-sm btn-circle btn-danger" title="Hapus"><i class="fa fa-fw fa-trash"></i></button>
+	      </div>
+			</form>
+    </div>
+  </div>
+</div>
+
 <script src="<?php echo base_url() ?>assets/admin/js/jquery-1.10.2.js"></script>
 <script>
 
@@ -364,6 +458,17 @@
         $("#ubahgaleriModal #judul_gk").val(judul);
         $("#ubahgaleriModal #ket").val(judul);
         $("#ubahgaleriModal #formubahgaleri").attr("action","<?php echo base_url() ?>menu/landing/galeri/ubah");
+    });
+
+    $(document).on("click", "#hapusslider", function() {
+        var id = $(this).data('id');
+        var nama = $(this).data('nama');
+        var file = $(this).data('file');
+        $("#hapussliderModal #id_slider").val(id);
+        $("#hapussliderModal #nama_slider").val(nama);
+        $("#hapussliderModal #file_slider").val(file);
+        $("#hapussliderModal #ket").val('Anda ingin menghapus slider '+nama+'?');
+        $("#hapussliderModal #formhapusslider").attr("action","<?php echo base_url() ?>menu/landing/galeri/hapusslider/"+id);
     });
 
 </script>
